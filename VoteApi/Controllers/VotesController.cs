@@ -34,7 +34,7 @@ namespace VoteApi.Controllers
 
         // POST api/votes
         [HttpPost]
-        public string Post(UserVote uservote)
+        public string Post([FromBody]UserVote uservote)
         {
             try
             {
@@ -49,8 +49,8 @@ namespace VoteApi.Controllers
                 else
                 {
                     userVoteDb.Happy = uservote.Happy;
-                    userVoteDb.Unhappy = uservote.Happy;
-                    userVoteDb.Angry = uservote.Happy;
+                    userVoteDb.Unhappy = uservote.Unhappy;
+                    userVoteDb.Angry = uservote.Angry;
 
                     var userVoteUpdated =  VoteRepo.UpdateUserVote(userVoteDb);
                 }
@@ -71,6 +71,7 @@ namespace VoteApi.Controllers
             try
             {
                 var votes = VoteRepo.GetAllUserVote();
+                voteSummary.TotalVotes = votes.Count();
 
                 foreach (var vote in votes)
                 {
@@ -91,7 +92,7 @@ namespace VoteApi.Controllers
             catch (Exception ex)
             {
             }
-
+            
             return voteSummary;
         }
         #endregion
