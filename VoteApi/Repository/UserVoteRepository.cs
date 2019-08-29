@@ -32,12 +32,14 @@ namespace VoteApi.Repository
 
         public UserVote GetUserVote(string VoterId)
         {
-            throw new NotImplementedException();
+            var userVote = Context.UserVote.FirstOrDefault(uv => uv.VoterId == VoterId);
+            return userVote;
         }
 
         public UserVote UpdateUserVote(UserVote userVote)
         {
-            throw new NotImplementedException();
+            Context.SaveChanges();
+            return userVote;
         }
     }
 }
